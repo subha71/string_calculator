@@ -19,5 +19,21 @@ RSpec.describe StringCalculator do
   it "returns the sum of multiple numbers" do
     expect(calculator.add("1,2,3")).to eq(6)
   end
-  
+
+  it "handles newlines as delimiters" do
+    expect(calculator.add("1\n2,3")).to eq(6)
+  end
+
+  it "supports custom delimiters" do
+    expect(calculator.add("//;\n1;2")).to eq(3)
+  end
+
+  it "raises an exception for negative numbers" do
+    expect { calculator.add("1,-2,3") }.to raise_error("Negative numbers not allowed: -2")
+  end
+
+  it "raises an exception listing all negative numbers" do
+    expect { calculator.add("1,-2,-3") }.to raise_error("Negative numbers not allowed: -2,-3")
+  end
+
 end
